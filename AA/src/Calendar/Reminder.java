@@ -37,4 +37,12 @@ public class Reminder extends Calendar{
     public void displayNote(){
         System.out.println(text);
     }
+
+    public Note getText() {
+        return text;
+    }
+
+    public void setText(Note text) {
+        this.text = text;
+    }
 }

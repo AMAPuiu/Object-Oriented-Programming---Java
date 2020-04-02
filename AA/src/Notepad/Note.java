@@ -5,14 +5,24 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Note {
+    private String title;
     private StringBuilder text;
 
-    public Note(StringBuilder text) {
+    public Note(String title, StringBuilder text) {
         this.text = text;
+        this.title = title;
     }
 
     public StringBuilder getText() {
         return text;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setText(StringBuilder text) {
@@ -31,6 +41,5 @@ public class Note {
             e.printStackTrace();
         }
     }
-
 
 }

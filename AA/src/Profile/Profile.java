@@ -141,6 +141,8 @@ public class Profile {
         Profile.ids = ids;
     }
 
+
+
     public void addTask(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text){
         for(Task t: tasks){
             if(t.getTitle().equals(title)) {
@@ -171,14 +173,13 @@ public class Profile {
         }
         System.out.println("Task doesn't exists!");
     }
-    public void editTask(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text, Boolean done){
+    public void editTask(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text){
         for(Task t: tasks){
             if(t.getTitle().equals(title)) {
                 t.setTime(time);
                 t.setRepeat(repeat);
                 t.setRepeat_time(repeat_time);
                 t.setText(text);
-                t.setDone(done);
                 System.out.println("Successful editing");
                 return;
             }
@@ -197,6 +198,7 @@ public class Profile {
         }
         System.out.println("Task doesn't exists!");
     }
+
 
     public void addShoppingList(String title, LocalDateTime time, Boolean repeat, String repeat_time,
                                 Note text, HashMap<String, Integer> list, String place){
@@ -257,16 +259,147 @@ public class Profile {
         System.out.println("Shopping List doesn't exists!");
     }
 
-    public void addToCalendar(ArrayList<Calendar> list, String title, LocalDateTime time, Boolean repeat,
-                              String repeat_time, Note text){
-        list.getClass()
-        for(Calendar iterator: list){
-            if(iterator instanceof Task){
 
+    public void addReminder(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text){
+        for(Reminder t: reminders){
+            if(t.getTitle().equals(title)) {
+                System.out.println("There is another reminder with the same name");
+                return;
             }
         }
-
+        reminders.add(new Reminder(title, time, repeat, repeat_time, text));
+        System.out.println("Successful add");
     }
+    public void addReminder(Reminder newReminder){
+        for(Reminder t: reminders){
+            if(t.getTitle().equals(newReminder.getTitle())) {
+                System.out.println("There is another reminder with the same name");
+                return;
+            }
+        }
+        reminders.add(newReminder);
+        System.out.println("Successful add");
+    }
+    public void deleteReminder(String title){
+        for(Reminder t: reminders){
+            if(t.getTitle().equals(title)) {
+                reminders.remove(t);
+                System.out.println("Successful removal");
+                return;
+            }
+        }
+        System.out.println("Reminder doesn't exists!");
+    }
+    public void editReminder(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text){
+        for(Reminder t: reminders){
+            if(t.getTitle().equals(title)) {
+                t.setTime(time);
+                t.setRepeat(repeat);
+                t.setRepeat_time(repeat_time);
+                t.setText(text);
+                System.out.println("Successful editing");
+                return;
+            }
+        }
+        System.out.println("Reminder doesn't exists!");
+    }
+
+
+    public void addEvent(String title, LocalDateTime time, String location, Boolean repeat, String repeat_time){
+        for(Event t: events){
+            if(t.getTitle().equals(title)) {
+                System.out.println("There is another event with the same name");
+                return;
+            }
+        }
+        events.add(new Event(title, time, location, repeat, repeat_time));
+        System.out.println("Successful add");
+    }
+    public void addReminder(Event newEvent){
+        for(Event t: events){
+            if(t.getTitle().equals(newEvent.getTitle())) {
+                System.out.println("There is another event with the same name");
+                return;
+            }
+        }
+        events.add(newEvent);
+        System.out.println("Successful add");
+    }
+    public void deleteEvent(String title){
+        for(Event t: events){
+            if(t.getTitle().equals(title)) {
+                events.remove(t);
+                System.out.println("Successful removal");
+                return;
+            }
+        }
+        System.out.println("Event doesn't exists!");
+    }
+    public void editEvent(String title, LocalDateTime time, String location, Boolean repeat, String repeat_time){
+        for(Event t: events){
+            if(t.getTitle().equals(title)) {
+                t.setTime(time);
+                t.setRepeat(repeat);
+                t.setRepeat_time(repeat_time);
+                t.setLocation(location);
+                System.out.println("Successful editing");
+                return;
+            }
+        }
+        System.out.println("Event doesn't exists!");
+    }
+
+
+    public void addAppointment(String title, LocalDateTime time, Boolean repeat, String repeat_time,
+                               String name, String location, ArrayList<String> requirements, String phone_number, Note text){
+        for(Appointment t: appointments){
+            if(t.getTitle().equals(title)) {
+                System.out.println("There is another appointment with the same name");
+                return;
+            }
+        }
+        appointments.add(new Appointment(title, time, repeat, repeat_time, name, location, requirements, phone_number, text));
+        System.out.println("Successful add");
+    }
+    public void addAppointment(Appointment newApp){
+        for(Appointment t: appointments){
+            if(t.getTitle().equals(newApp.getTitle())) {
+                System.out.println("There is another appointment with the same name");
+                return;
+            }
+        }
+        appointments.add(newApp);
+        System.out.println("Successful add");
+    }
+    public void deleteAppointment(String title){
+        for(Appointment t: appointments){
+            if(t.getTitle().equals(title)) {
+                appointments.remove(t);
+                System.out.println("Successful removal");
+                return;
+            }
+        }
+        System.out.println("Appointment doesn't exists!");
+    }
+    public void editAppointment(String title, LocalDateTime time, Boolean repeat, String repeat_time,
+                                String name, String location, ArrayList<String> requirements, String phone_number, Note text){
+        for(Appointment t: appointments){
+            if(t.getTitle().equals(title)) {
+                t.setTime(time);
+                t.setRepeat(repeat);
+                t.setRepeat_time(repeat_time);
+                t.setName(name);
+                t.setOffice(location);
+                t.setRequirements(requirements);
+                t.setPhone_number(phone_number);
+                t.setText(text);
+                System.out.println("Successful editing");
+                return;
+            }
+        }
+        System.out.println("Appointment doesn't exists!");
+    }
+
 
 
 
