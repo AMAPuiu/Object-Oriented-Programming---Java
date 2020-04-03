@@ -3,6 +3,7 @@ package Profile;
 import Calendar.*;
 import Notepad.Note;
 import Website.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Profile {
+public class Profile  implements Comparable<Profile>{
     private String name;
     private Integer ID;
     private Weather weather;
@@ -199,6 +200,19 @@ public class Profile {
         System.out.println("Task doesn't exists!");
     }
 
+    public void printTasks(){
+        for(Task t: tasks){
+            t.print();
+        }
+    }
+    public void printTask(String title){
+        for(Task t: tasks){
+            if(t.getTitle().equals(title)){
+                t.print();
+                return;
+            }
+        }
+    }
 
     public void addShoppingList(String title, LocalDateTime time, Boolean repeat, String repeat_time,
                                 Note text, HashMap<String, Integer> list, String place){
@@ -241,7 +255,7 @@ public class Profile {
                 s.setText(text);
                 s.setList(list);
                 s.setPlace(place);
-                System.out.println("There is another shopping list with the same name");
+                System.out.println("Successful editing!");
                 return;
             }
         }
@@ -258,8 +272,40 @@ public class Profile {
         }
         System.out.println("Shopping List doesn't exists!");
     }
-
-
+    public void addItem(String title, String item, Integer amount){
+        for(ShoppingList s: shoppingLists){
+            if(s.getTitle().equals(title)){
+                s.addItem(item, amount);
+            }
+        }
+    }
+    public void deleteItem(String title, String item){
+        for(ShoppingList s: shoppingLists){
+            if(s.getTitle().equals(title)){
+                s.deleteItem(item);
+            }
+        }
+    }
+    public void boughtItem(String title, String item, Integer amount){
+        for(ShoppingList s: shoppingLists){
+            if(s.getTitle().equals(title)){
+                s.boughtItem(item, amount);
+            }
+        }
+    }
+    public void printShoppingLists(){
+        for(ShoppingList l: shoppingLists){
+            l.print();
+        }
+    }
+    public void printShoppingList(String title){
+        for(ShoppingList l: shoppingLists){
+            if(l.getTitle().equals(title)){
+                l.print();
+                return;
+            }
+        }
+    }
     public void addReminder(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text){
         for(Reminder t: reminders){
             if(t.getTitle().equals(title)) {
@@ -303,7 +349,19 @@ public class Profile {
         }
         System.out.println("Reminder doesn't exists!");
     }
-
+    public void printReminders(){
+        for(Reminder r: reminders){
+            r.print();
+        }
+    }
+    public void printReminder(String title){
+        for(Reminder r: reminders){
+            if(r.getTitle().equals(title)){
+                r.print();
+                return;
+            }
+        }
+    }
 
     public void addEvent(String title, LocalDateTime time, String location, Boolean repeat, String repeat_time){
         for(Event t: events){
@@ -348,7 +406,19 @@ public class Profile {
         }
         System.out.println("Event doesn't exists!");
     }
-
+    public void printEvents(){
+        for(Event e: events){
+            e.print();
+        }
+    }
+    public void printEvent(String title){
+        for(Event e: events){
+            if(e.getTitle().equals(title)){
+                e.print();
+                return;
+            }
+        }
+    }
 
     public void addAppointment(String title, LocalDateTime time, Boolean repeat, String repeat_time,
                                String name, String location, ArrayList<String> requirements, String phone_number, Note text){
@@ -399,8 +469,34 @@ public class Profile {
         }
         System.out.println("Appointment doesn't exists!");
     }
-
-
-
-
+    public void printAppointments(){
+        for(Appointment a: appointments){
+            a.print();
+        }
+    }
+    public void printAppointment(String title){
+        for(Appointment a: appointments){
+            if(a.getTitle().equals(title)){
+                a.print();
+                return;
+            }
+        }
+    }
+    public void printNotes(){
+        for(Note n: notes){
+            n.print();
+        }
+    }
+    public void printNote(String title){
+        for(Note n: notes){
+            if(n.getTitle().equals(title)){
+                n.print();
+                return;
+            }
+        }
+    }
+    @Override
+    public int compareTo(@NotNull Profile o) {
+        return name.compareTo(o.name);
+    }
 }

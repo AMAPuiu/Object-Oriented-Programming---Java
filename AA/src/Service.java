@@ -4,13 +4,13 @@ import Calendar.ShoppingList;
 import Calendar.Task;
 import Notepad.Note;
 import Profile.Profile;
+import org.jetbrains.annotations.Nullable;
 
 import javax.lang.model.type.NullType;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Service {
     static private ArrayList<Profile> users;
@@ -26,12 +26,21 @@ public class Service {
             }
         }
         users.add(new Profile(name));
+        System.out.println("AAAAAAAAA");
+        //Collections.sort(users);
     }
 
     public static ArrayList<Profile> getUsers() {
         return users;
     }
-
+    @Nullable
+    public static Profile searchUser(String name){
+        for(Profile p: users){
+            if(p.getName().equals(name))
+                return p;
+        }
+        return null;
+    }
     static public void addLocation(Profile user, String city, String path){
         if(users.contains(user)){
             try {
@@ -67,6 +76,7 @@ public class Service {
             user.getWeather().open(city);
         }
     }
+
     static public void addFreqURL(Profile user, String type, String path){
         if(users.contains(user)){
             try {
@@ -102,6 +112,12 @@ public class Service {
             }
         }
     }
+    static public void printFreqURL(Profile user){
+        if(users.contains(user)){
+            user.getFrequentURLs().print();
+        }
+    }
+
 
 
     static public void addNote(Profile user, String title, StringBuilder text) {
@@ -127,9 +143,12 @@ public class Service {
         }
     }
     static public void displayNotes(Profile user){
-        if (users.contains(user)) {
-            System.out.println(user.getNotes());
-        }
+        if (users.contains(user))
+            user.printNotes();
+    }
+    static public void displayNote(Profile user, String title){
+        if (users.contains(user))
+            user.printNote(title);
     }
 
     static public void addTask(Profile user, String title, LocalDateTime time,
@@ -154,9 +173,12 @@ public class Service {
         }
     }
     static public void displayTasks(Profile user){
-        if (users.contains(user)) {
-            System.out.println(user.getTasks());
-        }
+        if(users.contains(user))
+            user.printTasks();
+    }
+    static public void displayTask(Profile user, String title){
+        if(users.contains(user))
+            user.printTask(title);
     }
 
     static public void addShoppingList(Profile user, String title, LocalDateTime time, Boolean repeat, String repeat_time,
@@ -181,9 +203,29 @@ public class Service {
             user.accomplishedShoppingList(title);
         }
     }
-    static public void displayShoppingList(Profile user){
+    static public void addItemToShoppingList(Profile user, String title, String item, Integer amount){
+        if(users.contains(user)) {
+            user.addItem(title,item,amount);
+        }
+    }
+    static public void deleteItemFromShoppingList(Profile user, String title, String item){
+        if(users.contains(user)) {
+            user.deleteItem(title,item);
+        }
+    }
+    static public void boughtItemFromShoppingList(Profile user, String title, String item, Integer amount){
+        if(users.contains(user)) {
+            user.boughtItem(title,item,amount);
+        }
+    }
+    static public void displayShoppingLists(Profile user){
         if (users.contains(user)) {
-            System.out.println(user.getShoppingLists());
+            user.printShoppingLists();
+        }
+    }
+    static public void displayShoppingList(Profile user, String title){
+        if (users.contains(user)) {
+            user.printShoppingList(title);
         }
     }
 
@@ -205,10 +247,14 @@ public class Service {
     }
     static public void displayReminders(Profile user){
         if (users.contains(user)) {
-            System.out.println(user.getReminders());
+            user.printReminders();
         }
     }
-
+    static public void displayReminder(Profile user, String title){
+        if (users.contains(user)) {
+            user.printReminder(title);
+        }
+    }
 
     static public void addEvent(Profile user, String title, String location, LocalDateTime time,
                                Boolean repeat, String repeat_time){
@@ -229,10 +275,14 @@ public class Service {
     }
     static public void displayEvents(Profile user){
         if (users.contains(user)) {
-            System.out.println(user.getEvents());
+            user.printEvents();
         }
     }
-
+    static public void displayEvent(Profile user, String title){
+        if (users.contains(user)) {
+            user.printEvent(title);
+        }
+    }
 
     static public void addAppointment(Profile user, String title, LocalDateTime time, Boolean repeat, String repeat_time,
                                       String name, String location, ArrayList<String> requirements, String phone_number, Note text){
@@ -253,8 +303,18 @@ public class Service {
     }
     static public void displayAppointments(Profile user){
         if (users.contains(user)) {
-            System.out.println(user.getAppointments());
+            user.printAppointments();
         }
     }
+    static public void displayAppointment(Profile user, String title){
+        if (users.contains(user)) {
+            user.printAppointment(title);
+        }
+    }
+
+    static public void parser(StringBuilder option){
+
+    }
+
 
 }

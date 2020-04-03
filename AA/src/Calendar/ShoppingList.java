@@ -49,6 +49,10 @@ public class ShoppingList extends Task{
             }
         }
     }
+    public void print(){
+        System.out.print(title + " " + time + " " + repeat + " " + repeat_time + " " + place + " ");
+        System.out.println(list);
+    }
     public Boolean checkEmpty(){
         return list.isEmpty();
     }

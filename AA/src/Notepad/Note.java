@@ -42,4 +42,8 @@ public class Note {
         }
     }
 
+    public void print(){
+        System.out.println(title + " " + text);
+    }
+
 }

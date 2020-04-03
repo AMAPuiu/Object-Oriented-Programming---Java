@@ -32,7 +32,8 @@ public class Reminder extends Calendar{
     }
 
     public void print(){
-        System.out.println(title + " " + time + " " + repeat + " " + repeat_time + " " + done);
+        System.out.print(title + " " + time + " " + repeat + " " + repeat_time + " " + done + " ");
+        text.print();
     }
     public void displayNote(){
         System.out.println(text);
