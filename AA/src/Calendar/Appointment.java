@@ -26,6 +26,19 @@ public class Appointment extends Task implements CSVSerialization {
         super();
     }
 
+    public Appointment(Appointment appointment) {
+        this.title = appointment.title;
+        this.done = appointment.done;
+        this.time = appointment.time;
+        this.repeat = appointment.repeat;
+        this.repeatTime = appointment.repeatTime;
+        this.text = appointment.text;
+        this.name = appointment.name;
+        this.office = appointment.office;
+        this.requirements = appointment.requirements;
+        this.phoneNumber = appointment.phoneNumber;
+    }
+
     public String getName() {
         return name;
     }
@@ -80,7 +93,10 @@ public class Appointment extends Task implements CSVSerialization {
     @Override
     public String[] transformToString(String user) {
         print();
-        return new String[]{user, title, String.valueOf(time),
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String csvTime = time.format(formatter);
+        System.out.println(csvTime);
+        return new String[]{user, title, csvTime,
                 String.valueOf(repeat), repeatTime, String.valueOf(done), name, office, phoneNumber};
     }
 
@@ -88,16 +104,14 @@ public class Appointment extends Task implements CSVSerialization {
     public String transformFromString(String[] data) {
         String user = data[0];
         title = data[1];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         time = LocalDateTime.parse(data[2], formatter);
-        text.setTitle(data[3]);
-        text.setText(new StringBuilder(data[4]));
-        repeat = Boolean.valueOf(data[5]);
-        repeatTime = data[6];
-        done = Boolean.valueOf(data[7]);
-        name = data[8];
-        office = data[9];
-        phoneNumber = data[10];
+        repeat = Boolean.valueOf(data[3]);
+        repeatTime = data[4];
+        done = Boolean.valueOf(data[5]);
+        name = data[6];
+        office = data[7];
+        phoneNumber = data[8];
         return user;
     }
 }

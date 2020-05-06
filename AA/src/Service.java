@@ -5,12 +5,15 @@ import Profile.Profile;
 import Utils.Audit;
 import Utils.CSVReader;
 import Utils.CSVWriter;
+import Website.FrequentURLs;
+import Website.Weather;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Service {
@@ -249,6 +252,7 @@ public class Service {
     static public void addTask(Profile user, String title, LocalDateTime time,
                                Boolean repeat, String repeat_time, Note text){
         if (users.contains(user)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 user.addTask(new Task(title, time, repeat, repeat_time, text));
             try {
                 Audit.writeEntry(filePathAudit, user.getName(), "add Task", String.valueOf(LocalDateTime.now()));
@@ -570,6 +574,14 @@ public class Service {
             while(profileCSVReader.hasEntries()){
                 Profile user = new Profile();
                 String u = profileCSVReader.readEntry(user);
+                user.setWeather(new Weather());
+                user.setFrequentURLs(new FrequentURLs());
+                user.setTasks(new ArrayList<Task>());
+                user.setShoppingLists(new ArrayList<ShoppingList>());
+                user.setReminders(new ArrayList<Reminder>());
+                user.setEvents(new ArrayList<Event>());
+                user.setNotes(new ArrayList<Note>());
+                user.setAppointments(new ArrayList<Appointment>());
                 users.add(user);
             }
         } catch (IOException e) {
@@ -585,7 +597,8 @@ public class Service {
                 String userName = appointmentCSVReader.readEntry(appointment);
                 Profile user =  searchUser(userName);
                 assert user != null;
-                user.addAppointment(appointment);
+                //appointment.print();
+                user.addAppointment(new Appointment(appointment));
             }
         } catch (IOException e) {
             e.printStackTrace();

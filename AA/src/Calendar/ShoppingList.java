@@ -69,7 +69,9 @@ public class ShoppingList extends Task implements CSVSerialization {
 
     @Override
     public String[] transformToString(String user) {
-        return new String[]{user, title, String.valueOf(time), text.getTitle(), String.valueOf(text.getText()),
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String csvTime = time.format(formatter);
+        return new String[]{user, title, csvTime, text.getTitle(), String.valueOf(text.getText()),
                 String.valueOf(repeat), repeatTime, String.valueOf(done), place};
     }
 
@@ -77,8 +79,9 @@ public class ShoppingList extends Task implements CSVSerialization {
     public String transformFromString(String[] data) {
         String user = data[0];
         title = data[1];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         time = LocalDateTime.parse(data[2], formatter);
+        this.setText(new Note());
         text.setTitle(data[3]);
         text.setText(new StringBuilder(data[4]));
         repeat = Boolean.valueOf(data[5]);

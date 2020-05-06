@@ -443,12 +443,17 @@ public class Profile  implements Comparable<Profile>, CSVSerialization {
         System.out.println("Successful add");
     }
     public void addAppointment(Appointment newApp){
+        System.out.println(appointments.size());
+        newApp.print();
         for(Appointment t: appointments){
+            System.out.println(appointments.size());
             if(t.getTitle().equals(newApp.getTitle())) {
                 System.out.println("There is another appointment with the same name");
                 return;
             }
         }
+        System.out.println("!!!");
+        newApp.print();
         appointments.add(newApp);
         System.out.println("Successful add");
     }

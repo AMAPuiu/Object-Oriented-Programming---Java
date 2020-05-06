@@ -1,2 +1,4 @@
 title,time,location,repeat,repeatTime,status
-Ana,pao,2020-05-06T08:30:12.438363500,Bucuresti,false,never,false
+Ana,pao,2020-05-06 10:09:36,Bucuresti,false,never,false
+Ana,ml,2020-05-06 10:09:36,Sibiu,false,never,false
+Ana,crm,2020-05-06 10:09:36,Sibiu,false,monthly,false

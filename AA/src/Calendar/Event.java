@@ -58,14 +58,16 @@ public class Event extends Calendar implements CSVSerialization {
 
     @Override
     public String[] transformToString(String user) {
-        return new String[]{user, title, String.valueOf(time), location, String.valueOf(repeat), repeatTime, String.valueOf(done)};
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String csvTime = time.format(formatter);
+        return new String[]{user, title, csvTime, location, String.valueOf(repeat), repeatTime, String.valueOf(done)};
     }
 
     @Override
     public String transformFromString(String [] data) {
         String user = data[0];
         title = data[1];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         time = LocalDateTime.parse(data[2], formatter);
         location = data[3];
         repeat = Boolean.valueOf(data[4]);

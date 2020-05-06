@@ -1,2 +1,4 @@
 title,time,note title,note text,repeat,repeatTime,status
-life,2020-05-06T08:30:12.415426700,run,3km,false,daily,false
+Ana,life,2020-05-06 10:09:36,run,3km,false,daily,false
+Ana,sport,2020-05-06 10:09:36,uni,PAO,false,never,false
+Ana,food,2020-05-06 10:09:36,run,2km,false,never,false

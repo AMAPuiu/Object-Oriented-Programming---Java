@@ -16,7 +16,6 @@ public class Note implements CSVSerialization {
     }
 
     public Note() {
-
     }
 
     public StringBuilder getText() {

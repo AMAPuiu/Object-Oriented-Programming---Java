@@ -61,7 +61,9 @@ public class Reminder extends Calendar implements CSVSerialization {
 
     @Override
     public String[] transformToString(String user) {
-        return new String[]{title, String.valueOf(time), text.getTitle(), String.valueOf(text.getText()),
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String csvTime = time.format(formatter);
+        return new String[]{user, title, csvTime, text.getTitle(), String.valueOf(text.getText()),
                 String.valueOf(repeat), repeatTime, String.valueOf(done)};
     }
 
@@ -69,10 +71,13 @@ public class Reminder extends Calendar implements CSVSerialization {
     public String transformFromString(String[] data) {
         String user = data[0];
         title = data[1];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         time = LocalDateTime.parse(data[2], formatter);
+        System.out.println("!!!");
+        this.setText(new Note());
         text.setTitle(data[3]);
         text.setText(new StringBuilder(data[4]));
+        System.out.println("!!!");
         repeat = Boolean.valueOf(data[5]);
         repeatTime = data[6];
         done = Boolean.valueOf(data[7]);

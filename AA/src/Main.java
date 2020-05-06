@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Main {
     public static void main(String [] args) {
         Service service = new Service();
-        //Service.loadData();
+        Service.loadData();
         Service.createNewProfile("Ana");
         Profile myUser = Service.searchUser("Ana");
         assert myUser != null;
@@ -42,6 +42,8 @@ public class Main {
         Service.editNote(myUser, "uni", new StringBuilder("sad"));
         Service.displayNote(myUser, "uni");
         Service.deleteNote(myUser, "uni");
+        Service.addNote(myUser, "uni", new StringBuilder("online"));
+        Service.addNote(myUser, "uni", new StringBuilder("aer"));
         Service.displayNotes(myUser);
 
         System.out.println("Tasks");
@@ -52,6 +54,8 @@ public class Main {
         Service.displayTask(myUser, "work");
         Service.accomplishTask(myUser, "work");
         Service.deleteTask(myUser, "uni");
+        Service.addTask(myUser, "a", LocalDateTime.now(), false, "never", new Note("uni", new StringBuilder("work")));
+        Service.addTask(myUser, "b", LocalDateTime.now(), false, "forever", new Note("d", new StringBuilder("fun")));
         Service.displayTasks(myUser);
 
         System.out.println("Shopping Lists");
@@ -78,6 +82,10 @@ public class Main {
         Service.accomplishShoppingList(myUser,"pills");
         Service.displayShoppingLists(myUser);
         Service.deleteShoppingList(myUser,"food");
+        Service.addShoppingList(myUser,"food", LocalDateTime.now(),true,"weekly",new Note("food",new StringBuilder("Ask too")),
+                list, "Kaufland");
+        Service.addShoppingList(myUser,"pills", LocalDateTime.now(),true,"monthly",new Note("pills",new StringBuilder("Ask too")),
+                list2, "Farmacia Tei");
 
         System.out.println("Reminders");
         Service.addReminder(myUser,"uni", LocalDateTime.now(),false,"never", new Note("uni", new StringBuilder("PAO")));
@@ -86,6 +94,8 @@ public class Main {
         Service.editReminder(myUser,"life",LocalDateTime.now(),false,"daily", new Note("run", new StringBuilder("3km")));
         Service.displayReminder(myUser,"life");
         Service.deleteReminder(myUser,"uni");
+        Service.addReminder(myUser,"sport", LocalDateTime.now(),false,"never", new Note("uni", new StringBuilder("PAO")));
+        Service.addReminder(myUser,"food", LocalDateTime.now(),false,"never", new Note("run", new StringBuilder("2km")));
         Service.displayReminders(myUser);
 
         System.out.println("Events");
@@ -95,6 +105,8 @@ public class Main {
         Service.editEvent(myUser,"pao","Bucuresti",LocalDateTime.now(), false,"never");
         Service.displayEvent(myUser,"pao");
         Service.deleteEvent(myUser,"ia");
+        Service.addEvent(myUser,"ml","Sibiu",LocalDateTime.now(),false,"never");
+        Service.addEvent(myUser,"crm","Sibiu",LocalDateTime.now(),false,"monthly");
         Service.displayEvents(myUser);
 
         System.out.println("Appointments");
@@ -107,6 +119,10 @@ public class Main {
                 "Bucuresti", new ArrayList<String>(Arrays.asList("bani","a")),"0733", null);
         Service.displayAppointment(myUser,"gat");
         Service.deleteAppointment(myUser,"stomac");
+        Service.addAppointment(myUser,"spate",LocalDateTime.now(),false, "never","Gheorghe",
+                "Bucuresti", new ArrayList<String>(Arrays.asList("bani","a")),"0732", null);
+        Service.addAppointment(myUser,"ochi",LocalDateTime.now(),false, "never","Salcamii",
+                "Bucuresti", null,"0733", null);
         Service.displayAppointments(myUser);
 
         Service.updateData();
