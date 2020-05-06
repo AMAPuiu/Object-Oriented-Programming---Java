@@ -2,16 +2,15 @@ package Profile;
 
 import Calendar.*;
 import Notepad.Note;
+import Utils.CSVSerialization;
 import Website.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
-public class Profile  implements Comparable<Profile>{
+public class Profile  implements Comparable<Profile>, CSVSerialization {
     private String name;
     private Integer ID;
     private Weather weather;
@@ -52,6 +51,9 @@ public class Profile  implements Comparable<Profile>{
         appointments = new ArrayList<Appointment>();
         notes = new ArrayList<Note>();
         ids += 1;
+    }
+
+    public Profile() {
     }
 
     public String getName() {
@@ -174,12 +176,12 @@ public class Profile  implements Comparable<Profile>{
         }
         System.out.println("Task doesn't exists!");
     }
-    public void editTask(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text){
+    public void editTask(String title, LocalDateTime time, Boolean repeat, String repeatTime, Note text){
         for(Task t: tasks){
             if(t.getTitle().equals(title)) {
                 t.setTime(time);
                 t.setRepeat(repeat);
-                t.setRepeat_time(repeat_time);
+                t.setRepeatTime(repeatTime);
                 t.setText(text);
                 System.out.println("Successful editing");
                 return;
@@ -187,7 +189,7 @@ public class Profile  implements Comparable<Profile>{
         }
         System.out.println("Task doesn't exists!");
     }
-    public void accomplishedTask(String title){
+    public void accomplishTask(String title){
         for(Task t: tasks) {
             if (t.getTitle().equals(title)) {
                 t.setDone(true);
@@ -214,7 +216,7 @@ public class Profile  implements Comparable<Profile>{
         }
     }
 
-    public void addShoppingList(String title, LocalDateTime time, Boolean repeat, String repeat_time,
+    public void addShoppingList(String title, LocalDateTime time, Boolean repeat, String repeatTime,
                                 Note text, HashMap<String, Integer> list, String place){
         for(ShoppingList s: shoppingLists){
             if(s.getTitle().equals(title)){
@@ -222,7 +224,7 @@ public class Profile  implements Comparable<Profile>{
                 return;
             }
         }
-        shoppingLists.add(new ShoppingList(title, time, repeat, repeat_time, text, list, place));
+        shoppingLists.add(new ShoppingList(title, time, repeat, repeatTime, text, list, place));
         System.out.println("Successful add");
     }
     public void addShoppingList(ShoppingList newShoppingList){
@@ -245,13 +247,13 @@ public class Profile  implements Comparable<Profile>{
         }
         System.out.println("Shopping list doesn't exists");
     }
-    public void editShoppingList(String title, LocalDateTime time, Boolean repeat, String repeat_time,
+    public void editShoppingList(String title, LocalDateTime time, Boolean repeat, String repeatTime,
                                  Note text, HashMap<String, Integer> list, String place){
         for(ShoppingList s: shoppingLists){
             if(s.getTitle().equals(title)){
                 s.setTime(time);
                 s.setRepeat(repeat);
-                s.setRepeat_time(repeat_time);
+                s.setRepeatTime(repeatTime);
                 s.setText(text);
                 s.setList(list);
                 s.setPlace(place);
@@ -260,7 +262,7 @@ public class Profile  implements Comparable<Profile>{
             }
         }
     }
-    public void accomplishedShoppingList(String title){
+    public void accomplishShoppingList(String title){
         for(ShoppingList s: shoppingLists){
             if(s.getTitle().equals(title)){
                 s.setDone(true);
@@ -286,10 +288,10 @@ public class Profile  implements Comparable<Profile>{
             }
         }
     }
-    public void boughtItem(String title, String item, Integer amount){
+    public void buyItem(String title, String item, Integer amount){
         for(ShoppingList s: shoppingLists){
             if(s.getTitle().equals(title)){
-                s.boughtItem(item, amount);
+                s.buyItem(item, amount);
             }
         }
     }
@@ -306,14 +308,14 @@ public class Profile  implements Comparable<Profile>{
             }
         }
     }
-    public void addReminder(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text){
+    public void addReminder(String title, LocalDateTime time, Boolean repeat, String repeatTime, Note text){
         for(Reminder t: reminders){
             if(t.getTitle().equals(title)) {
                 System.out.println("There is another reminder with the same name");
                 return;
             }
         }
-        reminders.add(new Reminder(title, time, repeat, repeat_time, text));
+        reminders.add(new Reminder(title, time, repeat, repeatTime, text));
         System.out.println("Successful add");
     }
     public void addReminder(Reminder newReminder){
@@ -336,12 +338,12 @@ public class Profile  implements Comparable<Profile>{
         }
         System.out.println("Reminder doesn't exists!");
     }
-    public void editReminder(String title, LocalDateTime time, Boolean repeat, String repeat_time, Note text){
+    public void editReminder(String title, LocalDateTime time, Boolean repeat, String repeatTime, Note text){
         for(Reminder t: reminders){
             if(t.getTitle().equals(title)) {
                 t.setTime(time);
                 t.setRepeat(repeat);
-                t.setRepeat_time(repeat_time);
+                t.setRepeatTime(repeatTime);
                 t.setText(text);
                 System.out.println("Successful editing");
                 return;
@@ -363,14 +365,14 @@ public class Profile  implements Comparable<Profile>{
         }
     }
 
-    public void addEvent(String title, LocalDateTime time, String location, Boolean repeat, String repeat_time){
+    public void addEvent(String title, LocalDateTime time, String location, Boolean repeat, String repeatTime){
         for(Event t: events){
             if(t.getTitle().equals(title)) {
                 System.out.println("There is another event with the same name");
                 return;
             }
         }
-        events.add(new Event(title, time, location, repeat, repeat_time));
+        events.add(new Event(title, time, location, repeat, repeatTime));
         System.out.println("Successful add");
     }
     public void addReminder(Event newEvent){
@@ -393,12 +395,12 @@ public class Profile  implements Comparable<Profile>{
         }
         System.out.println("Event doesn't exists!");
     }
-    public void editEvent(String title, LocalDateTime time, String location, Boolean repeat, String repeat_time){
+    public void editEvent(String title, LocalDateTime time, String location, Boolean repeat, String repeatTime){
         for(Event t: events){
             if(t.getTitle().equals(title)) {
                 t.setTime(time);
                 t.setRepeat(repeat);
-                t.setRepeat_time(repeat_time);
+                t.setRepeatTime(repeatTime);
                 t.setLocation(location);
                 System.out.println("Successful editing");
                 return;
@@ -419,16 +421,25 @@ public class Profile  implements Comparable<Profile>{
             }
         }
     }
-
-    public void addAppointment(String title, LocalDateTime time, Boolean repeat, String repeat_time,
-                               String name, String location, ArrayList<String> requirements, String phone_number, Note text){
+    public void addEvent(Event newEvent){
+        for(Event e: events){
+            if(e.getTitle().equals((newEvent.getTitle()))){
+                System.out.println("There is another event with the same name");
+                return;
+            }
+        }
+        events.add(newEvent);
+        System.out.println("Successful add");
+    }
+    public void addAppointment(String title, LocalDateTime time, Boolean repeat, String repeatTime,
+                               String name, String location, ArrayList<String> requirements, String phoneNumber, Note text){
         for(Appointment t: appointments){
             if(t.getTitle().equals(title)) {
                 System.out.println("There is another appointment with the same name");
                 return;
             }
         }
-        appointments.add(new Appointment(title, time, repeat, repeat_time, name, location, requirements, phone_number, text));
+        appointments.add(new Appointment(title, time, repeat, repeatTime, name, location, requirements, phoneNumber, text));
         System.out.println("Successful add");
     }
     public void addAppointment(Appointment newApp){
@@ -451,17 +462,17 @@ public class Profile  implements Comparable<Profile>{
         }
         System.out.println("Appointment doesn't exists!");
     }
-    public void editAppointment(String title, LocalDateTime time, Boolean repeat, String repeat_time,
-                                String name, String location, ArrayList<String> requirements, String phone_number, Note text){
+    public void editAppointment(String title, LocalDateTime time, Boolean repeat, String repeatTime,
+                                String name, String location, ArrayList<String> requirements, String phoneNumber, Note text){
         for(Appointment t: appointments){
             if(t.getTitle().equals(title)) {
                 t.setTime(time);
                 t.setRepeat(repeat);
-                t.setRepeat_time(repeat_time);
+                t.setRepeatTime(repeatTime);
                 t.setName(name);
                 t.setOffice(location);
                 t.setRequirements(requirements);
-                t.setPhone_number(phone_number);
+                t.setPhoneNumber(phoneNumber);
                 t.setText(text);
                 System.out.println("Successful editing");
                 return;
@@ -482,6 +493,16 @@ public class Profile  implements Comparable<Profile>{
             }
         }
     }
+    public void addNote(Note newNote){
+        for(Note n: notes){
+            if(n.getTitle().equals(newNote.getTitle())) {
+                System.out.println("There is another note with the same name");
+                return;
+            }
+        }
+        notes.add(newNote);
+        System.out.println("Successful add");
+    }
     public void printNotes(){
         for(Note n: notes){
             n.print();
@@ -498,5 +519,22 @@ public class Profile  implements Comparable<Profile>{
     @Override
     public int compareTo(@NotNull Profile o) {
         return name.compareTo(o.name);
+    }
+
+    @Override
+    public String[] getColumns() {
+        return new String[]{"name", "id"};
+    }
+
+    @Override
+    public String[] transformToString(String user) {
+        return new String[]{name, String.valueOf(ID)};
+    }
+
+    @Override
+    public String transformFromString(String[] data) {
+        name = data[0];
+        ID = Integer.parseInt(data[1]);
+        return name;
     }
 }

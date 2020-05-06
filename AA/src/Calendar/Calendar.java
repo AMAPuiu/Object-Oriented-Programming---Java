@@ -14,6 +14,9 @@ abstract public class Calendar {
         done = false;
     }
 
+    public Calendar() {
+    }
+
     public String getTitle() {
         return title;
     }

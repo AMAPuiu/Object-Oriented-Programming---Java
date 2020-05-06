@@ -1,11 +1,13 @@
 package Website;
 
+import Utils.CSVSerialization;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 
-public class FrequentURLs extends URLOpener{
+public class FrequentURLs extends URLOpener {
     private HashMap<String, ArrayList<URL>> favourites;
     private int types;
 

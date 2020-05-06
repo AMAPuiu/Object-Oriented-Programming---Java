@@ -1,9 +1,6 @@
 import Notepad.Note;
 import Profile.Profile;
-import Website.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,9 +9,11 @@ import java.util.HashMap;
 public class Main {
     public static void main(String [] args) {
         Service service = new Service();
-
+        //Service.loadData();
         Service.createNewProfile("Ana");
         Profile myUser = Service.searchUser("Ana");
+        assert myUser != null;
+        System.out.println(myUser.getName());
         System.out.println("Weather");
         Service.addLocation(myUser,"Sibiu",
                 "https://www.accuweather.com/ro/ro/sibiu/290499/daily-weather-forecast/290499");
@@ -51,7 +50,7 @@ public class Main {
         Service.displayTasks(myUser);
         Service.editTask(myUser, "work", LocalDateTime.now(), true, "monthly", new Note("uni", new StringBuilder("cry")));
         Service.displayTask(myUser, "work");
-        Service.accomplishedTask(myUser, "work");
+        Service.accomplishTask(myUser, "work");
         Service.deleteTask(myUser, "uni");
         Service.displayTasks(myUser);
 
@@ -75,8 +74,8 @@ public class Main {
         Service.addItemToShoppingList(myUser,"food","milk", 1);
         Service.displayShoppingList(myUser, "food");
         Service.deleteItemFromShoppingList(myUser,"food", "milk");
-        Service.boughtItemFromShoppingList(myUser,"food","butter",3);
-        Service.accomplishedShoppingList(myUser,"pills");
+        Service.buyItemFromShoppingList(myUser,"food","butter",3);
+        Service.accomplishShoppingList(myUser,"pills");
         Service.displayShoppingLists(myUser);
         Service.deleteShoppingList(myUser,"food");
 
@@ -110,6 +109,7 @@ public class Main {
         Service.deleteAppointment(myUser,"stomac");
         Service.displayAppointments(myUser);
 
+        Service.updateData();
 
     }
     public static void menu(){
