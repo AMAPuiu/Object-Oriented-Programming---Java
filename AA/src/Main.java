@@ -1,6 +1,7 @@
 import Notepad.Note;
 import Profile.Profile;
 
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,9 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String [] args) {
+        // Conection to the database
+        Main.createConnection();
+
         Service service = new Service();
         Service.loadData();
         Service.createNewProfile("Ana");
@@ -141,4 +145,23 @@ public class Main {
         System.out.println(" - 'open [t]' to Open URLs of type t");
         System.out.println(" - 'open [url]' to Open in browser the desired url");
     }
+
+    static void createConnection(){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
+            System.out.println("Database connected successfully");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select * from USERS where name like '%i'");
+            while(rs.next()){
+                String name = rs.getString("name");
+                System.out.println(name);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
